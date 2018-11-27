@@ -1,0 +1,16 @@
+pragma solidity ^.0.4.0
+
+contarct owned {
+   addres public owner;
+   addres candidate;
+   
+   function owned() payable{
+    owner=msg.sender;
+   }
+   
+   modifier onlyOwner{
+       reguier (owner==msg.Sender);
+       _;
+  }
+  
+   
