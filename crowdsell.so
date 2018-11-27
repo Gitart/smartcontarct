@@ -1,103 +1,100 @@
 pragma solidity ^.0.4.0;
 
 
-
 contract owned{
    address public owner;
    address public candidate;
 
-   
    function owned() payable{
         owner=msg.sender;
     }
 
-   
     modifier onlyOwner{
-        reguier (owner==msg.Sender);
+        require (owner==msg.Sender);
         _;
     }
   
     // Change owner
-    function changeOwner(addres _owner onlyOwner public){
+    function changeOwner(address _owner) onlyOwner public{
         owner=_owner;
     }
  
  
-   function confirmOwner() public {
-     require(candidate==msg.sender
-     owner=candidate;
+    function confirmOwner() public {
+       require(candidate==msg.sender);
+       owner=candidate;
     }
 }
 
 
 
 contract Crowdseles is owned{
-   uint256 public totalSupplay;
-   maping(addres=>uint256) public balanceOf;
+   uint256 public totalSuply;
+   mapping(address=>uint256) public balanceOf;
    
-   event Transfer(addres indexed from, addres indexed to, uint256 value);
+   event transfer(address indexed from, address indexed to, uint256 value);
    
    function Crowdsale() payable owned(){
-      totalSupply     = 210000000;
-      balanceOf[this] = 20000000;
-      balanceOf[owner]= totalSuply-balanceOf[this];
-      Transfer(this,owner,balanceOf[owner];
+      uint256 totalSupply=210000000;
+      balanceOf[this]=20000000;
+      balanceOf[owner]=totalSuply-balanceOf[this];
+      transfer(this, owner, balanceOf[owner]);
    }
-}
 
    
-   
-/**
- *  Sale tokens
- */
-function() payble{
-    
-    // Check is tokens
-    reqiure (balanceOf[this]>0);
-    uint256=tokens = 5000 * msg.value / 1000000000000000000;
-    
-    if (tokens > balanceOf[this]) {
-        tokens = balanceOf[this];
-        uint valueWei = tokenes * 1000000000000000000/5000;
-        msg.seneder.transfer(msg.value-valueWei);
+   // Sale tokens
+    function() payable{
+        
+        // Check is tokens
+        require (balanceOf[this]>0);
+        uint256 tokens=5000*msg.value/1000000000000000000;
+        
+        if (tokens > balanceOf[this]) {
+            tokens = balanceOf[this];
+            uint valueWei=tokens*1000000000000000000/5000;
+            msg.seneder.transfer(msg.value-valueWei);
+        }
+        
+        require (tokens>0);
+        balanceOf[msg.sender]+=tokens;
+        balanceOf[this]-=tokens;
+        transfer(this, msg.Sender, tokens);
     }
-    
-    require (tokens>0);
-    balanceOf[msg.sender]+=tokens;
-    balanceOf[this]-=tokens;
-    Transfer(this, msg.Sender, tokens);
-   }
  }
     
 
 // Usage tokens
 contract Token is Crowdsale{
 
-   string public standard = "Token 0.1";
-   string public name     = "Skytoken";
-   string public symbol   = "SKT";
+   string public standard = 'Token 0.1';
+   string public name     = 'Skytoken';
+   string public symbol   = 'SKT';
    string public decimal  = 0;
    
-   function Token() payble Crowdsale();
+   function Token() payable Crowdsale()
    
-   function transfer(addres _to, uint256 _value) public {
+    function transfer(address _to, uint256 _value) public{
       require(balanceOf[msg.sender] >= _value);
-      balanceOf[msg.sender]-=_value;
+      balanceOf[msg.sender] -=_value;
       balanceOf[_to]+=_value;
       Transfer(msg.sender, _to, _value);
-   }
-}
+    }
+}   
+  
+
       
       
 contract  SimpleContract is Token{
 
-   function SimpleContracy() payble Token(){};
+   function SimpleContract() payable Token() {}
    
-   function wittdraw() public on 
+   function wittdraw() public owner{ 
        owner.transfer(this.balance);
    }
 
-   function KillContarct() public onlyOwner
-       selfdestvct(owner);
+   function KillContarct() public onlyOwner{
+       selfdestruct(owner);
    }
+
+
 }
