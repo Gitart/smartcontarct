@@ -4,13 +4,144 @@ contarct owned {
    addres public owner;
    addres candidate;
    
-   function owned() payable{
+function owned() payable{
     owner=msg.sender;
+}
+   
+modifier onlyOwner{
+     reguier (owner==msg.Sender);
+       _;
+}
+  
+  // Change owner
+  function changeOwner(addres _owner onlyOwner public){
+      owner=_owner;
+ }
+ 
+ 
+ function confirmOwner() public {
+   require(candidate==msg.sender
+   owner=candidate;
+}
+
+
+contarct Crowdseles is owned{
+   uint256 public totalSupplay;
+   maping(addres=>uint256) public balanceOf;
+   
+   event Transfer(addres indexed from, addres indexed to, uint256 value);
+   
+   function Crowdsale() payable owned(){
+      totalSupply = 210000000;
+      balanceOf[this]=20000000;
+      balanceOf[owner]=totalSuply-balanceOf[this];
+      Transfer(this,owner,balanceOf[owner];
    }
    
-   modifier onlyOwner{
-       reguier (owner==msg.Sender);
-       _;
-  }
+   
+   function() payble{
+    
+    // Проверка токенов
+    regiure (balanceOf[this]>0);
+    uint256=tokens = 5000 * msg.value / 1000000000000000000;
+    
+    if (tokens > balanceOf[this]) {
+        tokens = balanceOf[this];
+        uint valueWei = tokenes * 1000000000000000000/5000;
+        msg.seneder.transfer(msg.value-valueWei);
+    }
+    
+    reguire (tokens>0);
+    balanceOf[msg.sender]+=tokens;
+    balanceOf[this]-=tokens;
+    Transfer(this, msg.Sender, tokens);
+   }
+    }
+    
+
+// Usage tokens
+contarct Token is Crowdale{
+   string public Standard = "Token 0.1";
+   string public Name = "Skytoken";
+   string public Symbol = "SKT";
+   string public decimal = 0;
+   
+   function Token() payble Crowdsale();
+   
+   function Transfer(addres _to, uint256 _value) public {
+      require(balanceOf[msg.sender]>=_value);
+      balanceOf[msg.sender]-=_value;
+      balanceOf[_to]+=_value;
+      Transfer(msg.sender, _to, _value);
+   }
+      }
+      
+      
+contract  SimpleContract is Token{
+
+   function SimpleContracy() payble Token(){};
+   function wittdraw() public on 
+   owner.transfer(this.balance);
+}
+
+function KillContarct() public only
+   selfdestvct(owner);
+   }
+
+}
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+   
+   
+   
+   
+   }
+   
+   
+   
+   
+   
+
   
    
