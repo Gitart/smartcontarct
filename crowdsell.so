@@ -42,7 +42,7 @@ contarct Crowdseles is owned{
    function() payble{
     
     // Проверка токенов
-    regiure (balanceOf[this]>0);
+    reqiure (balanceOf[this]>0);
     uint256=tokens = 5000 * msg.value / 1000000000000000000;
     
     if (tokens > balanceOf[this]) {
@@ -51,7 +51,7 @@ contarct Crowdseles is owned{
         msg.seneder.transfer(msg.value-valueWei);
     }
     
-    reguire (tokens>0);
+    require (tokens>0);
     balanceOf[msg.sender]+=tokens;
     balanceOf[this]-=tokens;
     Transfer(this, msg.Sender, tokens);
@@ -60,15 +60,16 @@ contarct Crowdseles is owned{
     
 
 // Usage tokens
-contarct Token is Crowdale{
-   string public Standard = "Token 0.1";
-   string public Name = "Skytoken";
-   string public Symbol = "SKT";
-   string public decimal = 0;
+contarct Token is Crowdsale{
+
+   string public standard = "Token 0.1";
+   string public name     = "Skytoken";
+   string public symbol   = "SKT";
+   string public decimal  = 0;
    
    function Token() payble Crowdsale();
    
-   function Transfer(addres _to, uint256 _value) public {
+   function transfer(addres _to, uint256 _value) public {
       require(balanceOf[msg.sender]>=_value);
       balanceOf[msg.sender]-=_value;
       balanceOf[_to]+=_value;
@@ -84,64 +85,9 @@ contract  SimpleContract is Token{
    owner.transfer(this.balance);
 }
 
-function KillContarct() public only
+function KillContarct() public onlyOwner
    selfdestvct(owner);
    }
 
 }
-   
-   
-   
-   
-   
-   
-   
-   
-
-
-
-
-
-
-
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   
-   
-   
-   
-   
-   }
-   
-   
-   
-   
-   
-
   
-   
