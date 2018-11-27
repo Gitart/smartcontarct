@@ -1,0 +1,99 @@
+pragma solidity ^0.4.22;
+
+
+contract owned{
+   address public owner;
+   address public candidate;
+
+   function owned() payable{
+        owner=msg.sender;
+    }
+
+    modifier onlyOwner{
+        require (owner==msg.sender);
+        _;
+    }
+  
+    // Change owner
+    function changeOwner(address _owner) onlyOwner public{
+        owner=_owner;
+    }
+ 
+    // Confirm owner  
+    function confirmOwner() public {
+       require(candidate==msg.sender);
+       owner=candidate;
+    }
+}
+
+
+
+contract Crowdsale is owned{
+   uint256 public totalSuply;
+   mapping(address=>uint256) public balanceOf;
+   
+   // For view in etherscan
+   event transfer(address indexed from, address indexed to, uint256 value);
+   
+   function Crowdsale() payable owned(){
+      uint256 totalSupply=210000000;
+      balanceOf[this]=20000000;
+      balanceOf[owner]=totalSuply-balanceOf[this];
+      transfer(this, owner, balanceOf[owner]);
+   }
+
+    // Sale tokens
+    function() payable{
+        
+        // Check is tokens
+        require (balanceOf[this]>0);
+        uint256 tokens=5000*msg.value/1000000000000000000;
+        
+        if (tokens > balanceOf[this]) {
+            tokens = balanceOf[this];
+            uint256 valueWei=tokens*1000000000000000000/5000;
+            msg.seneder.transfer(msg.value - valueWei);
+            
+        }
+        
+        require (tokens>0);
+        balanceOf[msg.sender]+=tokens;
+        balanceOf[this]-=tokens;
+        transfer(this, msg.Sender, tokens);
+    }
+ }
+    
+
+// Usage tokens
+contract Token is Crowdsale{
+   string public standard = 'Token 0.1';
+   string public name     = 'Skytoken';
+   string public symbol   = 'SKT';
+   uint8  public decimals  = 0;
+   
+   function Token_sale() payable Crowdsale() {}
+
+    function transfer_tokens(address _to, uint256 _value) public {
+      require (balanceOf[msg.sender] >= _value);
+      balanceOf[msg.sender]-=_value;
+      balanceOf[_to]+=_value;
+      transfer_tokens(msg.sender,_to,_value);
+      //return true
+    }
+}
+
+
+// Check balance
+contract  SimpleContract is Token{
+
+   function SimpleContract1() payable Token() {}
+   
+   // Output facilities
+   function wittdraw() public owner{ 
+       owner.transfer(this.balance);
+   }
+
+   function KillContarct() public onlyOwner{
+       selfdestruct(owner);
+   }
+}
