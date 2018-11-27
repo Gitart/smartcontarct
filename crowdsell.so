@@ -1,42 +1,50 @@
-pragma solidity ^.0.4.0
+pragma solidity ^.0.4.0;
 
-contarct owned {
-   addres public owner;
-   addres candidate;
+
+
+contract owned{
+   address public owner;
+   address public candidate;
+
    
-function owned() payable{
-    owner=msg.sender;
-}
+   function owned() payable{
+        owner=msg.sender;
+    }
+
    
-modifier onlyOwner{
-     reguier (owner==msg.Sender);
-       _;
-}
+    modifier onlyOwner{
+        reguier (owner==msg.Sender);
+        _;
+    }
   
-  // Change owner
-  function changeOwner(addres _owner onlyOwner public){
-      owner=_owner;
- }
+    // Change owner
+    function changeOwner(addres _owner onlyOwner public){
+        owner=_owner;
+    }
  
  
- function confirmOwner() public {
-   require(candidate==msg.sender
-   owner=candidate;
+   function confirmOwner() public {
+     require(candidate==msg.sender
+     owner=candidate;
+    }
 }
 
 
-contarct Crowdseles is owned{
+
+contract Crowdseles is owned{
    uint256 public totalSupplay;
    maping(addres=>uint256) public balanceOf;
    
    event Transfer(addres indexed from, addres indexed to, uint256 value);
    
    function Crowdsale() payable owned(){
-      totalSupply = 210000000;
-      balanceOf[this]=20000000;
-      balanceOf[owner]=totalSuply-balanceOf[this];
+      totalSupply     = 210000000;
+      balanceOf[this] = 20000000;
+      balanceOf[owner]= totalSuply-balanceOf[this];
       Transfer(this,owner,balanceOf[owner];
    }
+}
+
    
    
 /**
@@ -59,11 +67,11 @@ function() payble{
     balanceOf[this]-=tokens;
     Transfer(this, msg.Sender, tokens);
    }
-    }
+ }
     
 
 // Usage tokens
-contarct Token is Crowdsale{
+contract Token is Crowdsale{
 
    string public standard = "Token 0.1";
    string public name     = "Skytoken";
@@ -73,24 +81,23 @@ contarct Token is Crowdsale{
    function Token() payble Crowdsale();
    
    function transfer(addres _to, uint256 _value) public {
-      require(balanceOf[msg.sender]>=_value);
+      require(balanceOf[msg.sender] >= _value);
       balanceOf[msg.sender]-=_value;
       balanceOf[_to]+=_value;
       Transfer(msg.sender, _to, _value);
    }
-      }
+}
       
       
 contract  SimpleContract is Token{
 
    function SimpleContracy() payble Token(){};
+   
    function wittdraw() public on 
-   owner.transfer(this.balance);
-}
-
-function KillContarct() public onlyOwner
-   selfdestvct(owner);
+       owner.transfer(this.balance);
    }
 
+   function KillContarct() public onlyOwner
+       selfdestvct(owner);
+   }
 }
-  
