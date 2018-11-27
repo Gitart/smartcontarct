@@ -1,4 +1,4 @@
-pragma solidity ^.0.4.0;
+pragma solidity ^0.4.22;
 
 
 contract owned{
@@ -10,7 +10,7 @@ contract owned{
     }
 
     modifier onlyOwner{
-        require (owner==msg.Sender);
+        require (owner==msg.sender);
         _;
     }
   
@@ -19,7 +19,7 @@ contract owned{
         owner=_owner;
     }
  
- 
+    // Confirm owner  
     function confirmOwner() public {
        require(candidate==msg.sender);
        owner=candidate;
@@ -28,10 +28,11 @@ contract owned{
 
 
 
-contract Crowdseles is owned{
+contract Crowdsele is owned{
    uint256 public totalSuply;
    mapping(address=>uint256) public balanceOf;
    
+   // For view in etherscan
    event transfer(address indexed from, address indexed to, uint256 value);
    
    function Crowdsale() payable owned(){
@@ -41,8 +42,7 @@ contract Crowdseles is owned{
       transfer(this, owner, balanceOf[owner]);
    }
 
-   
-   // Sale tokens
+    // Sale tokens
     function() payable{
         
         // Check is tokens
@@ -64,30 +64,30 @@ contract Crowdseles is owned{
     
 
 // Usage tokens
-contract Token is Crowdsale{
-
+contract Token is Crowdsele{
    string public standard = 'Token 0.1';
    string public name     = 'Skytoken';
    string public symbol   = 'SKT';
-   string public decimal  = 0;
+   uint8  public decimals  = 0;
    
-   function Token() payable Crowdsale()
-   
-    function transfer(address _to, uint256 _value) public{
-      require(balanceOf[msg.sender] >= _value);
-      balanceOf[msg.sender] -=_value;
-      balanceOf[_to]+=_value;
-      Transfer(msg.sender, _to, _value);
-    }
-}   
-  
+   function Token() payable Crowdsale() {}
 
-      
-      
+    function transfer(address _to, uint256 _value) public {
+      require (balanceOf[msg.sender] >= _value);
+      balanceOf[msg.sender]-=_value;
+      balanceOf[_to]+=_value;
+      Transfer(msg.sender,_to,_value);
+      //return true
+    }
+}
+
+
+// Check balance
 contract  SimpleContract is Token{
 
    function SimpleContract() payable Token() {}
    
+   // Output facilities
    function wittdraw() public owner{ 
        owner.transfer(this.balance);
    }
@@ -95,6 +95,4 @@ contract  SimpleContract is Token{
    function KillContarct() public onlyOwner{
        selfdestruct(owner);
    }
-
-
 }
