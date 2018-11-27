@@ -1,6 +1,6 @@
 The contract with my modifier:
 
-```sol
+```solidity
 contract Owned {
 
 address private owner;
