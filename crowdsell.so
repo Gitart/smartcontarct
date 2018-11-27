@@ -39,9 +39,12 @@ contarct Crowdseles is owned{
    }
    
    
-   function() payble{
+/**
+ *  Sale tokens
+ */
+function() payble{
     
-    // Проверка токенов
+    // Check is tokens
     reqiure (balanceOf[this]>0);
     uint256=tokens = 5000 * msg.value / 1000000000000000000;
     
